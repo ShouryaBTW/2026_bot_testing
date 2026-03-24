@@ -1,0 +1,131 @@
+LEFT
+
+return new SequentialCommandGroup(
+      // RESET AT START
+      new ResetPose(m_robotDrive, s_limelightSubsystem),
+
+      // FIRST PATH
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, 3.25, 0, 250, 0.25,4, true),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)
+      ),
+
+      // FIRST PATH TO CENTER
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, 3.250, -3.25, 250, 0.25, 4, true),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+
+      // FIRST PATH BACK TO POSE RESET
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, 2.5, 0.25, 180, 0.2, 3, false),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+
+      // RESET POSE
+      new ResetPose(m_robotDrive, s_limelightSubsystem),
+
+      // FIRST PATH BACK TO SHOOT POSTION
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, -1.55, 0.1, 180, 0.1, 4, false),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+
+      // SHOOT SEQUENCE
+      new TurnToAngle(m_robotDrive, 288),
+      new ShootSequence(s_shooterSubsystem, s_feederSubsystem, s_floorSubsystem, m_robotDrive, s_intakeSubsystem, s_pivotSubsystem).withTimeout(3),
+      
+      // RESET POSE FOR SECOND POINT
+      new TurnToAngle(m_robotDrive, 0),
+      new WaitCommand(.25),
+      new ResetPose(m_robotDrive, s_limelightSubsystem),
+
+      
+
+      // SECOND PATH
+      new DriveToPoint(m_robotDrive, 2, 0.1, 250, 0.25, 4, true),
+      
+      // SECOND PATH TO CENTER
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, 1.5, -4, 250, 0.25, 4, true),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+
+      // SECOND PATH BACK TO POSE RESET
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, 2.50, 0.25, 180, 0.25, 4, false),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+
+      // RESET POSE
+      new ResetPose(m_robotDrive, s_limelightSubsystem),
+
+      // SECOND PATH BACK TO SHOOTING POSITION
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, -1.55, 0.1, 180, 0.1, 4, false),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+      
+      // SHOOT SEQUENCE
+      new TurnToAngle(m_robotDrive, 288),
+      new ShootSequence(s_shooterSubsystem, s_feederSubsystem, s_floorSubsystem, m_robotDrive, s_intakeSubsystem, s_pivotSubsystem).withTimeout(3)
+    );
+
+    RIGHT
+
+    return new SequentialCommandGroup(
+      // RESET AT START
+      new ResetPose(m_robotDrive, s_limelightSubsystem),
+
+      // FIRST PATH
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, 3.25, 0, 110, 0.25,4, true),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)
+      ),
+
+      // FIRST PATH TO CENTER
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, 3.25, 3.25, 110, 0.25, 4, true),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+
+      // FIRST PATH BACK TO POSE RESET
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, 2.5, 0.25, 180, 0.2, 3, false),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+
+      // RESET POSE
+      new ResetPose(m_robotDrive, s_limelightSubsystem),
+
+      // FIRST PATH BACK TO SHOOT POSTION
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, -1.45, 0, 180, 0.1, 4, false),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+
+      // SHOOT SEQUENCE
+      new TurnToAngle(m_robotDrive, 72),
+      new ShootSequence(s_shooterSubsystem, s_feederSubsystem, s_floorSubsystem, m_robotDrive, s_intakeSubsystem, s_pivotSubsystem).withTimeout(3),
+      
+      // RESET POSE FOR SECOND POINT
+      new TurnToAngle(m_robotDrive, 0),
+      new WaitCommand(.25),
+      new ResetPose(m_robotDrive, s_limelightSubsystem),
+
+      // SECOND PATH
+      new DriveToPoint(m_robotDrive, 2, -0.1, 110, 0.25, 4, true),
+      
+      // SECOND PATH TO CENTER
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, 1.5, 4, 110, 0.25, 4, true),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+
+      // SECOND PATH BACK TO POSE RESET
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, 2.50, 0.25, 180, 0.25, 4, false),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+
+      // RESET POSE
+      new ResetPose(m_robotDrive, s_limelightSubsystem),
+
+      // SECOND PATH BACK TO SHOOTING POSITION
+      new ParallelDeadlineGroup(
+        new DriveToPoint(m_robotDrive, -1.45, 0, 180, 0.1, 4, false),
+        new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
+      
+      // SHOOT SEQUENCE
+      new TurnToAngle(m_robotDrive, 72),
+      new ShootSequence(s_shooterSubsystem, s_feederSubsystem, s_floorSubsystem, m_robotDrive, s_intakeSubsystem, s_pivotSubsystem).withTimeout(3)
+    );
