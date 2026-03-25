@@ -25,6 +25,7 @@ import frc.robot.commands.ResetPose;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.SetPivotPosition;
 import frc.robot.commands.ShootSequence;
+import frc.robot.commands.TeleopShootLive;
 import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
@@ -78,6 +79,10 @@ public class RobotContainer {
 
     new JoystickButton(m_driverController, XboxController.Button.kY.value)
       .whileTrue(new Purge(s_feederSubsystem, s_shooterSubsystem, s_intakeSubsystem, s_floorSubsystem));
+
+    // New live shoot — button B
+    new JoystickButton(m_driverController, XboxController.Button.kB.value)
+      .whileTrue(new TeleopShootLive( m_robotDrive, s_shooterSubsystem, s_feederSubsystem, s_floorSubsystem, s_intakeSubsystem, s_pivotSubsystem));  
 
     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value)
       .whileTrue(new SetPivotPosition(s_pivotSubsystem, 25));
