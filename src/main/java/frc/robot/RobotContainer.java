@@ -82,7 +82,15 @@ public class RobotContainer {
 
     // New live shoot — button B
     new JoystickButton(m_driverController, XboxController.Button.kB.value)
-      .whileTrue(new TeleopShootLive( m_robotDrive, s_shooterSubsystem, s_feederSubsystem, s_floorSubsystem, s_intakeSubsystem, s_pivotSubsystem));  
+    .whileTrue(new TeleopShootLive(
+        m_robotDrive,
+        s_shooterSubsystem,
+        s_feederSubsystem,
+        s_floorSubsystem,
+        s_intakeSubsystem,
+        s_pivotSubsystem,
+        m_driverController
+    ));
 
     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value)
       .whileTrue(new SetPivotPosition(s_pivotSubsystem, 25));
@@ -131,7 +139,11 @@ public class RobotContainer {
           new DriveToPoint(m_robotDrive, -1.6, 0, 180, 0.1, 4, false),
           new RunIntake(s_intakeSubsystem, s_pivotSubsystem, 80, 119)),
         new TurnToAngle(m_robotDrive, 288),
-        new ShootSequence(s_shooterSubsystem, s_feederSubsystem, s_floorSubsystem, m_robotDrive, s_intakeSubsystem, s_pivotSubsystem).withTimeout(3)
+        new ParallelDeadlineGroup(
+          new ShootSequence(s_shooterSubsystem, s_feederSubsystem, s_floorSubsystem, m_robotDrive, s_intakeSubsystem, s_pivotSubsystem),
+          new DriveToPoint(m_robotDrive, 0, 0, 180, 0.25, 4, false)
+          )
+        
     );
   }
 
